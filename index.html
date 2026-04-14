@@ -1,0 +1,562 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>樂善堂梁銶琚書院 中國歷史科 中史組備考指南</title>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@300;400;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-color: #0f172a;
+            --card-bg: rgba(30, 41, 59, 0.7);
+            --text-color: #f8fafc;
+            --accent-color: #38bdf8;
+            --priority-color: #fbbf24; 
+            --border-color: rgba(255, 255, 255, 0.1);
+            --progress-empty: #334155;
+            --glass-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
+        }
+
+        [data-theme="light"] {
+            --bg-color: #f1f5f9;
+            --card-bg: rgba(255, 255, 255, 0.8);
+            --text-color: #1e293b;
+            --accent-color: #0284c7;
+            --priority-color: #d97706;
+            --border-color: rgba(0, 0, 0, 0.1);
+            --progress-empty: #cbd5e1;
+            --glass-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.1);
+        }
+
+        * {
+            box-sizing: border-box;
+            transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease;
+        }
+
+        body {
+            font-family: 'Noto Sans TC', sans-serif;
+            background: var(--bg-color);
+            color: var(--text-color);
+            margin: 0;
+            padding: 20px;
+            display: flex;
+            justify-content: center;
+            min-height: 100vh;
+        }
+
+        .container {
+            max-width: 1100px;
+            width: 100%;
+            display: grid;
+            grid-template-columns: 350px 1fr;
+            gap: 20px;
+        }
+
+        /* Header & Progress */
+        header {
+            grid-column: 1 / -1;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px;
+            background: var(--card-bg);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            border: 1px solid var(--border-color);
+            box-shadow: var(--glass-shadow);
+        }
+
+        .header-info h1 { 
+            margin: 0; 
+            font-size: 24px; 
+            color: var(--accent-color); 
+            line-height: 1.4;
+        }
+        .header-info .sub-title {
+            font-size: 16px;
+            opacity: 0.8;
+            margin-top: 5px;
+        }
+        .countdown { font-size: 18px; font-weight: bold; margin-top: 10px; }
+
+        .progress-container {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .circle-progress {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            background: conic-gradient(var(--accent-color) 0%, var(--progress-empty) 0%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+        }
+
+        .circle-progress::before {
+            content: attr(data-percent);
+            position: absolute;
+            width: 50px;
+            height: 50px;
+            background: var(--bg-color);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 14px;
+            font-weight: bold;
+        }
+
+        /* Sidebar */
+        aside {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        .card {
+            background: var(--card-bg);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            padding: 20px;
+            border: 1px solid var(--border-color);
+            box-shadow: var(--glass-shadow);
+        }
+
+        .timer-display {
+            font-size: 48px;
+            font-weight: bold;
+            text-align: center;
+            margin: 10px 0;
+            font-family: monospace;
+        }
+
+        .timer-controls {
+            display: flex;
+            gap: 10px;
+            margin-top: 10px;
+        }
+
+        input[type="number"] {
+            width: 60px;
+            background: rgba(0,0,0,0.2);
+            border: 1px solid var(--border-color);
+            color: var(--text-color);
+            border-radius: 5px;
+            padding: 5px;
+        }
+
+        button {
+            flex: 1;
+            padding: 10px;
+            border-radius: 10px;
+            border: none;
+            cursor: pointer;
+            background: var(--accent-color);
+            color: white;
+            font-weight: bold;
+        }
+
+        button.secondary { background: #64748b; }
+
+        .resource-link {
+            display: block;
+            padding: 10px 12px;
+            margin: 8px 0;
+            background: rgba(255,255,255,0.05);
+            border-radius: 8px;
+            text-decoration: none;
+            color: var(--text-color);
+            font-size: 14px;
+            transition: background-color 0.2s;
+        }
+        .resource-link:hover { background: var(--accent-color); color: white; }
+        
+        .gem-link {
+            border-left: 3px solid #10b981;
+        }
+
+        /* Main Content & Collapsible Details */
+        main {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        details.topic-section {
+            background: rgba(255,255,255,0.02);
+            border-radius: 12px;
+            padding: 5px;
+            margin-bottom: 10px;
+        }
+
+        summary.collapsible-header {
+            cursor: pointer;
+            color: var(--accent-color);
+            font-size: 18px;
+            font-weight: bold;
+            padding: 15px;
+            background: rgba(0,0,0,0.2);
+            border-radius: 8px;
+            list-style: none;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            user-select: none;
+        }
+
+        summary.collapsible-header::-webkit-details-marker {
+            display: none;
+        }
+
+        summary.collapsible-header::after {
+            content: '▼';
+            font-size: 14px;
+        }
+
+        details[open] > summary.collapsible-header::after {
+            content: '▲';
+        }
+
+        .collapsible-content {
+            padding: 15px 10px 5px 10px;
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+
+        .tier-title {
+            font-size: 14px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            opacity: 0.7;
+            margin-bottom: 5px;
+            border-left: 3px solid var(--accent-color);
+            padding-left: 10px;
+        }
+
+        .topic-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 10px;
+        }
+
+        .topic-item {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 12px;
+            background: rgba(255,255,255,0.05);
+            border-radius: 12px;
+            cursor: pointer;
+            border: 1px solid transparent;
+        }
+
+        .topic-item:hover {
+            background: rgba(255,255,255,0.1);
+        }
+
+        .topic-item.important {
+            border-color: var(--priority-color);
+            background: rgba(251, 191, 36, 0.1);
+        }
+
+        .topic-item.important span {
+            color: var(--priority-color);
+            font-weight: bold;
+        }
+
+        .topic-item input { transform: scale(1.2); cursor: pointer; }
+
+        .theme-toggle {
+            background: none;
+            border: 1px solid var(--border-color);
+            color: var(--text-color);
+            padding: 8px 15px;
+            border-radius: 20px;
+            cursor: pointer;
+            font-size: 14px;
+        }
+
+        .quote-box {
+            font-style: italic;
+            text-align: center;
+            line-height: 1.6;
+            font-size: 15px;
+            min-height: 80px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: opacity 0.8s ease-in-out;
+        }
+
+        @media (max-width: 850px) {
+            .container { grid-template-columns: 1fr; }
+            .topic-grid { grid-template-columns: 1fr; }
+            header { flex-direction: column; gap: 15px; text-align: center; }
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <header>
+        <div class="header-info">
+            <h1>樂善堂梁銶琚書院</h1>
+            <div class="sub-title">中國歷史科 中史組備考指南</div>
+            <div class="countdown" id="exam-countdown">距離考試還有: -- 天</div>
+        </div>
+        <div class="progress-container">
+            <button class="theme-toggle" onclick="toggleTheme()">切換深/淺模式</button>
+            <div class="circle-progress" id="main-progress" data-percent="0%"></div>
+        </div>
+    </header>
+
+    <aside>
+        <div class="card">
+            <h3>⏳ 專注溫習小時鐘</h3>
+            <div class="timer-display" id="timer-display">25:00</div>
+            <div style="display:flex; align-items:center; gap:10px; justify-content:center;">
+                設定: <input type="number" id="timer-input" value="25" min="1" max="120"> 分鐘
+            </div>
+            <div class="timer-controls">
+                <button onclick="startTimer()">開始</button>
+                <button class="secondary" onclick="resetTimer()">重置</button>
+            </div>
+        </div>
+
+        <div class="card">
+            <h3>🤖 溫習用 Google Gems</h3>
+            <a href="https://gemini.google.com/gem/1MJWoG3zChRXAnuVvomVmS4pOQF3ZMe43?usp=sharing" target="_blank" class="resource-link gem-link">✨ DSE 拆題教練</a>
+            <a href="https://gemini.google.com/gem/1tqaG1nzP0IQWxqybvz2LCk_vcVYyQ59P?usp=sharing" target="_blank" class="resource-link gem-link">📖 智能導師 (甲部)</a>
+            <a href="https://gemini.google.com/gem/1ftmBkqiH5HVIbGMx68Tj8-5fBTcBznCT?usp=sharing" target="_blank" class="resource-link gem-link">📘 智能導師 (乙部)</a>
+        </div>
+
+        <div class="card">
+            <h3>📚 應試官方資源</h3>
+            <a href="https://www.hkeaa.edu.hk/DocLibrary/HKDSE/Subject_Information/chist/2026hkdse-c-chist.pdf" target="_blank" class="resource-link">🔗 2026 評核大綱</a>
+            <a href="https://www.hkeaa.edu.hk/tc/hkdse/assessment/subject_information/category_a_subjects/hkdse_subj.html?A2&2&8_25" target="_blank" class="resource-link">🔗 考生表現示例</a>
+            <a href="https://www.hkeaa.edu.hk/tc/hkdse/assessment/subject_information/category_a_subjects/hkdse_subj.html?A2&2&8_5" target="_blank" class="resource-link">🔗 教師研討會簡報</a>
+            <a href="https://www.youtube.com/@hippooqqih" target="_blank" class="resource-link">📺 鄧老師 YouTube 頻道</a>
+        </div>
+
+        <div class="card">
+            <h3>✨ 每日勉勵</h3>
+            <div class="quote-box" id="quote-display">
+                「往者不可諫，來者猶可追。每一份努力都是歷史的積澱。」
+            </div>
+        </div>
+    </aside>
+
+    <main>
+        <div class="card">
+            <h3>📑 溫習進度追蹤 <span style="font-size:14px; font-weight:normal; opacity:0.7;">(點擊標題可摺起/展開)</span></h3>
+            
+            <details class="topic-section" open>
+                <summary class="collapsible-header">甲部：上古至十九世紀中葉</summary>
+                <div class="collapsible-content">
+                    <div class="tier-title">第一層：先秦至東漢</div>
+                    <div class="topic-grid">
+                        <label class="topic-item important"><input type="checkbox"> <span>周代分封 ★</span></label>
+                        <label class="topic-item important"><input type="checkbox"> <span>春秋戰國政治社會變動 ★</span></label>
+                        <label class="topic-item"><input type="checkbox"> 秦始皇施政</label>
+                        <label class="topic-item important"><input type="checkbox"> <span>漢武帝 ★</span></label>
+                        <label class="topic-item important"><input type="checkbox"> <span>王莽篡漢 ★</span></label>
+                        <label class="topic-item important"><input type="checkbox"> <span>東漢政局 ★</span></label>
+                    </div>
+
+                    <div class="tier-title">第二層：隋唐</div>
+                    <div class="topic-grid">
+                        <label class="topic-item"><input type="checkbox"> 隋文帝開皇之治</label>
+                        <label class="topic-item"><input type="checkbox"> 唐太宗貞觀之治</label>
+                        <label class="topic-item important"><input type="checkbox"> <span>唐玄宗開元之治 ★</span></label>
+                        <label class="topic-item important"><input type="checkbox"> <span>唐安史之亂 ★</span></label>
+                    </div>
+
+                    <div class="tier-title">第三層：宋明清</div>
+                    <div class="topic-grid">
+                        <label class="topic-item important"><input type="checkbox"> <span>宋代中央集權 ★</span></label>
+                        <label class="topic-item important"><input type="checkbox"> <span>明代君主集權 ★</span></label>
+                        <label class="topic-item"><input type="checkbox"> 清代君主集權</label>
+                    </div>
+                </div>
+            </details>
+
+            <details class="topic-section" open>
+                <summary class="collapsible-header">乙部：十九世紀中葉至二十世紀末</summary>
+                <div class="collapsible-content">
+                    <div class="tier-title">第一層：晚清局勢</div>
+                    <div class="topic-grid">
+                        <label class="topic-item"><input type="checkbox"> 鴉片戰爭及南京條約</label>
+                        <label class="topic-item"><input type="checkbox"> 英法聯軍及北京條約</label>
+                        <label class="topic-item important"><input type="checkbox"> <span>甲午戰爭及列強劃分 ★</span></label>
+                        <label class="topic-item important"><input type="checkbox"> <span>洋務運動 ★</span></label>
+                        <label class="topic-item important"><input type="checkbox"> <span>維新運動 ★</span></label>
+                        <label class="topic-item important"><input type="checkbox"> <span>清末革命運動 ★</span></label>
+                    </div>
+
+                    <div class="tier-title">第二層：民國發展</div>
+                    <div class="topic-grid">
+                        <label class="topic-item"><input type="checkbox"> 袁氏稱帝</label>
+                        <label class="topic-item"><input type="checkbox"> 軍閥割據</label>
+                        <label class="topic-item"><input type="checkbox"> 五四運動</label>
+                        <label class="topic-item important"><input type="checkbox"> <span>國共第一次合作與分裂 ★</span></label>
+                        <label class="topic-item important"><input type="checkbox"> <span>國共和談與內戰 ★</span></label>
+                    </div>
+
+                    <div class="tier-title">第三層：現代中國</div>
+                    <div class="topic-grid">
+                        <label class="topic-item important"><input type="checkbox"> <span>社會主義建設(五大運動) ★</span></label>
+                        <label class="topic-item important"><input type="checkbox"> <span>三面紅旗運動 ★</span></label>
+                        <label class="topic-item important"><input type="checkbox"> <span>文化大革命 ★</span></label>
+                        <label class="topic-item"><input type="checkbox"> 改革開放</label>
+                        <label class="topic-item"><input type="checkbox"> 對外關係</label>
+                    </div>
+                </div>
+            </details>
+
+            <details class="topic-section" open>
+                <summary class="collapsible-header">選修單元三：時代與知識分子</summary>
+                <div class="collapsible-content">
+                    <div class="topic-grid">
+                        <label class="topic-item important"><input type="checkbox"> <span>孔子 ★</span></label>
+                        <label class="topic-item important"><input type="checkbox"> <span>司馬遷 ★</span></label>
+                        <label class="topic-item"><input type="checkbox"> 王安石</label>
+                        <label class="topic-item important"><input type="checkbox"> <span>何啟 ★</span></label>
+                    </div>
+                </div>
+            </details>
+        </div>
+    </main>
+</div>
+
+<script>
+    // 1. 倒數計時
+    function updateCountdown() {
+        const examDate = new Date('April 29, 2026 09:00:00').getTime();
+        const now = new Date().getTime();
+        const diff = examDate - now;
+        const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+        
+        const countdownEl = document.getElementById('exam-countdown');
+        if (days > 0) {
+            countdownEl.innerText = `距離考試還有: ${days} 天`;
+        } else if (days === 0) {
+            countdownEl.innerText = `今天是 DSE 考試大日子！加油！`;
+            countdownEl.style.color = "var(--priority-color)";
+        } else {
+            countdownEl.innerText = `考試已結束，辛苦了！`;
+        }
+    }
+    updateCountdown();
+    // 每天更新一次倒數
+    setInterval(updateCountdown, 1000 * 60 * 60 * 24);
+
+    // 2. 進度條邏輯
+    const checkboxes = document.querySelectorAll('input[type="checkbox"]');
+    const mainProgress = document.getElementById('main-progress');
+
+    function updateProgress() {
+        const total = checkboxes.length;
+        const checked = document.querySelectorAll('input[type="checkbox"]:checked').length;
+        const percent = Math.round((checked / total) * 100);
+        mainProgress.setAttribute('data-percent', percent + '%');
+        mainProgress.style.background = `conic-gradient(var(--accent-color) ${percent}%, var(--progress-empty) 0%)`;
+    }
+
+    checkboxes.forEach(cb => cb.addEventListener('change', updateProgress));
+
+    // 3. 自訂小時鐘
+    let timerInterval;
+    let timeLeft;
+
+    function startTimer() {
+        clearInterval(timerInterval);
+        const minutes = document.getElementById('timer-input').value;
+        timeLeft = minutes * 60;
+        
+        timerInterval = setInterval(() => {
+            const mins = Math.floor(timeLeft / 60);
+            const secs = timeLeft % 60;
+            document.getElementById('timer-display').innerText = 
+                `${mins.toString().padStart(2, '0')}:${secs.toString().padStart(2, '0')}`;
+            
+            if (timeLeft <= 0) {
+                clearInterval(timerInterval);
+                playAlert();
+                alert("專注時間結束！閉上眼睛休息一下吧。");
+            }
+            timeLeft--;
+        }, 1000);
+    }
+
+    function resetTimer() {
+        clearInterval(timerInterval);
+        const minutes = document.getElementById('timer-input').value;
+        document.getElementById('timer-display').innerText = `${minutes.toString().padStart(2, '0')}:00`;
+    }
+
+    function playAlert() {
+        const context = new (window.AudioContext || window.webkitAudioContext)();
+        const osc = context.createOscillator();
+        const gain = context.createGain();
+        osc.connect(gain);
+        gain.connect(context.destination);
+        osc.type = "sine";
+        osc.frequency.value = 880;
+        osc.start();
+        setTimeout(() => osc.stop(), 500);
+    }
+
+    // 4. 深色切換
+    function toggleTheme() {
+        const body = document.body;
+        if (body.getAttribute('data-theme') === 'light') {
+            body.removeAttribute('data-theme');
+        } else {
+            body.setAttribute('data-theme', 'light');
+        }
+    }
+
+    // 5. 動態鼓勵金句 (每 8 秒轉換一次)
+    const quotes = [
+        "「往者不可諫，來者猶可追。每一份努力都是歷史的積澱。」",
+        "「博學之，審問之，慎思之，明辨之，篤行之。」",
+        "「讀史使人明智，持之以恆必有所成。」",
+        "「不積跬步，無以至千里；不積小流，無以成江海。」",
+        "「再堅持一下，現在的辛苦是未來成功的註腳。」",
+        "「歷史的長河永不停息，你的努力也會在時間中開花。」",
+        "「寧靜致遠，專注當下的每一個課題。」",
+        "「千淘萬漉雖辛苦，吹盡狂沙始到金。」",
+        "「今日多背一頁書，考場便多一分勝算！」"
+    ];
+    
+    let quoteIndex = 0;
+    const quoteDisplay = document.getElementById('quote-display');
+    
+    // 初始化第一句
+    quoteDisplay.innerText = quotes[0];
+
+    function changeQuote() {
+        // 先淡出
+        quoteDisplay.style.opacity = 0;
+        
+        setTimeout(() => {
+            // 更換文字
+            quoteIndex = (quoteIndex + 1) % quotes.length;
+            quoteDisplay.innerText = quotes[quoteIndex];
+            // 再淡入
+            quoteDisplay.style.opacity = 1;
+        }, 800); // 等待淡出動畫完成 (與 CSS 中的 0.8s 配合)
+    }
+
+    // 設定定時器，每 8 秒執行一次更換
+    setInterval(changeQuote, 8000);
+
+</script>
+
+</body>
+</html>
