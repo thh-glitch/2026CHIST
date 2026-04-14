@@ -2,7 +2,7 @@
 <html lang="zh-Hant">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>樂善堂梁銶琚書院 中國歷史科 中史組備考指南</title>
     <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@300;400;700&display=swap" rel="stylesheet">
     <style>
@@ -38,23 +38,35 @@
             background: var(--bg-color);
             color: var(--text-color);
             margin: 0;
-            padding: 20px;
+            padding: 15px;
             display: flex;
             justify-content: center;
             min-height: 100vh;
         }
 
+        /* --- 網格佈局系統 (Grid Layout) --- */
         .container {
-            max-width: 1100px;
+            max-width: 1200px;
             width: 100%;
             display: grid;
-            grid-template-columns: 350px 1fr;
             gap: 20px;
+            /* 電腦版預設佈局 */
+            grid-template-columns: 320px 1fr;
+            grid-template-areas: 
+                "header header"
+                "sidebar main";
+            align-items: start;
         }
 
-        /* Header & Progress */
+        header { grid-area: header; }
+        aside.sidebar { grid-area: sidebar; display: flex; flex-direction: column; gap: 20px; }
+        main { grid-area: main; display: flex; flex-direction: column; gap: 20px; }
+        
+        /* 為了在手機版能把 Timer 拆出來，將 Timer 視為獨立區塊 */
+        .timer-card-wrapper { display: contents; }
+
+        /* --- Header & Progress --- */
         header {
-            grid-column: 1 / -1;
             display: flex;
             justify-content: space-between;
             align-items: center;
@@ -72,51 +84,29 @@
             color: var(--accent-color); 
             line-height: 1.4;
         }
-        .header-info .sub-title {
-            font-size: 16px;
-            opacity: 0.8;
-            margin-top: 5px;
-        }
+        .header-info .sub-title { font-size: 16px; opacity: 0.8; margin-top: 5px; }
         .countdown { font-size: 18px; font-weight: bold; margin-top: 10px; }
 
-        .progress-container {
-            display: flex;
-            align-items: center;
-            gap: 15px;
-        }
+        .progress-container { display: flex; align-items: center; gap: 15px; }
 
         .circle-progress {
-            width: 60px;
-            height: 60px;
+            width: 60px; height: 60px;
             border-radius: 50%;
             background: conic-gradient(var(--accent-color) 0%, var(--progress-empty) 0%);
-            display: flex;
-            align-items: center;
-            justify-content: center;
+            display: flex; align-items: center; justify-content: center;
             position: relative;
         }
-
         .circle-progress::before {
             content: attr(data-percent);
             position: absolute;
-            width: 50px;
-            height: 50px;
+            width: 50px; height: 50px;
             background: var(--bg-color);
             border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 14px;
-            font-weight: bold;
+            display: flex; align-items: center; justify-content: center;
+            font-size: 14px; font-weight: bold;
         }
 
-        /* Sidebar */
-        aside {
-            display: flex;
-            flex-direction: column;
-            gap: 20px;
-        }
-
+        /* --- Cards --- */
         .card {
             background: var(--card-bg);
             backdrop-filter: blur(10px);
@@ -126,177 +116,125 @@
             box-shadow: var(--glass-shadow);
         }
 
-        .timer-display {
-            font-size: 48px;
-            font-weight: bold;
-            text-align: center;
-            margin: 10px 0;
-            font-family: monospace;
-        }
+        .card h3 { margin-top: 0; font-size: 18px; }
 
-        .timer-controls {
-            display: flex;
-            gap: 10px;
-            margin-top: 10px;
-        }
-
+        .timer-display { font-size: 48px; font-weight: bold; text-align: center; margin: 10px 0; font-family: monospace; }
+        .timer-controls { display: flex; gap: 10px; margin-top: 15px; }
         input[type="number"] {
-            width: 60px;
-            background: rgba(0,0,0,0.2);
-            border: 1px solid var(--border-color);
-            color: var(--text-color);
-            border-radius: 5px;
-            padding: 5px;
+            width: 60px; background: rgba(0,0,0,0.2); border: 1px solid var(--border-color);
+            color: var(--text-color); border-radius: 5px; padding: 8px; font-size: 16px; text-align: center;
         }
-
         button {
-            flex: 1;
-            padding: 10px;
-            border-radius: 10px;
-            border: none;
-            cursor: pointer;
-            background: var(--accent-color);
-            color: white;
-            font-weight: bold;
+            flex: 1; padding: 12px; border-radius: 10px; border: none; cursor: pointer;
+            background: var(--accent-color); color: white; font-weight: bold; font-size: 16px;
         }
-
         button.secondary { background: #64748b; }
 
         .resource-link {
-            display: block;
-            padding: 10px 12px;
-            margin: 8px 0;
-            background: rgba(255,255,255,0.05);
-            border-radius: 8px;
-            text-decoration: none;
-            color: var(--text-color);
-            font-size: 14px;
+            display: block; padding: 12px 15px; margin: 8px 0;
+            background: rgba(255,255,255,0.05); border-radius: 10px;
+            text-decoration: none; color: var(--text-color); font-size: 15px;
             transition: background-color 0.2s;
         }
         .resource-link:hover { background: var(--accent-color); color: white; }
-        
-        .gem-link {
-            border-left: 3px solid #10b981;
-        }
+        .gem-link { border-left: 4px solid #10b981; }
 
-        /* Main Content & Collapsible Details */
-        main {
-            display: flex;
-            flex-direction: column;
-            gap: 20px;
-        }
-
+        /* --- Collapsible Details (Syllabus) --- */
         details.topic-section {
-            background: rgba(255,255,255,0.02);
-            border-radius: 12px;
-            padding: 5px;
-            margin-bottom: 10px;
+            background: rgba(255,255,255,0.02); border-radius: 12px; padding: 5px; margin-bottom: 12px;
         }
-
         summary.collapsible-header {
-            cursor: pointer;
-            color: var(--accent-color);
-            font-size: 18px;
-            font-weight: bold;
-            padding: 15px;
-            background: rgba(0,0,0,0.2);
-            border-radius: 8px;
-            list-style: none;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
+            cursor: pointer; color: var(--accent-color); font-size: 18px; font-weight: bold;
+            padding: 16px; background: rgba(0,0,0,0.2); border-radius: 8px;
+            list-style: none; display: flex; justify-content: space-between; align-items: center;
             user-select: none;
         }
+        summary.collapsible-header::-webkit-details-marker { display: none; }
+        summary.collapsible-header::after { content: '▼'; font-size: 14px; transition: transform 0.3s; }
+        details[open] > summary.collapsible-header::after { transform: rotate(180deg); }
 
-        summary.collapsible-header::-webkit-details-marker {
-            display: none;
-        }
-
-        summary.collapsible-header::after {
-            content: '▼';
-            font-size: 14px;
-        }
-
-        details[open] > summary.collapsible-header::after {
-            content: '▲';
-        }
-
-        .collapsible-content {
-            padding: 15px 10px 5px 10px;
-            display: flex;
-            flex-direction: column;
-            gap: 15px;
-        }
+        .collapsible-content { padding: 15px 10px 5px 10px; display: flex; flex-direction: column; gap: 15px; }
 
         .tier-title {
-            font-size: 14px;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            opacity: 0.7;
-            margin-bottom: 5px;
-            border-left: 3px solid var(--accent-color);
-            padding-left: 10px;
+            font-size: 14px; text-transform: uppercase; opacity: 0.8; margin-bottom: 5px;
+            border-left: 3px solid var(--accent-color); padding-left: 10px; font-weight: bold;
         }
 
-        .topic-grid {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 10px;
-        }
+        .topic-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); gap: 12px; }
 
         .topic-item {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            padding: 12px;
-            background: rgba(255,255,255,0.05);
-            border-radius: 12px;
-            cursor: pointer;
-            border: 1px solid transparent;
+            display: flex; align-items: center; gap: 12px; padding: 14px;
+            background: rgba(255,255,255,0.05); border-radius: 12px; cursor: pointer;
+            border: 1px solid transparent; user-select: none;
         }
-
-        .topic-item:hover {
-            background: rgba(255,255,255,0.1);
-        }
-
-        .topic-item.important {
-            border-color: var(--priority-color);
-            background: rgba(251, 191, 36, 0.1);
-        }
-
-        .topic-item.important span {
-            color: var(--priority-color);
-            font-weight: bold;
-        }
-
-        .topic-item input { transform: scale(1.2); cursor: pointer; }
+        .topic-item:hover { background: rgba(255,255,255,0.1); }
+        .topic-item.important { border-color: var(--priority-color); background: rgba(251, 191, 36, 0.1); }
+        .topic-item.important span { color: var(--priority-color); font-weight: bold; }
+        .topic-item input { transform: scale(1.4); cursor: pointer; margin: 0; }
 
         .theme-toggle {
-            background: none;
-            border: 1px solid var(--border-color);
-            color: var(--text-color);
-            padding: 8px 15px;
-            border-radius: 20px;
-            cursor: pointer;
-            font-size: 14px;
+            background: none; border: 1px solid var(--border-color); color: var(--text-color);
+            padding: 8px 15px; border-radius: 20px; cursor: pointer; font-size: 14px;
         }
 
         .quote-box {
-            font-style: italic;
-            text-align: center;
-            line-height: 1.6;
-            font-size: 15px;
-            min-height: 80px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
+            font-style: italic; text-align: center; line-height: 1.6; font-size: 15px;
+            min-height: 80px; display: flex; align-items: center; justify-content: center;
             transition: opacity 0.8s ease-in-out;
         }
 
-        @media (max-width: 850px) {
-            .container { grid-template-columns: 1fr; }
-            .topic-grid { grid-template-columns: 1fr; }
-            header { flex-direction: column; gap: 15px; text-align: center; }
+        /* =========================================
+           平板版本適應 (Tablet - iPad 直向) 
+           ========================================= */
+        @media (max-width: 1024px) {
+            .container {
+                grid-template-columns: 1fr;
+                grid-template-areas: 
+                    "header"
+                    "sidebar" /* 在平板直向，將資源和時鐘放在頂部雙排 */
+                    "main";
+            }
+            aside.sidebar {
+                flex-direction: row; flex-wrap: wrap; 
+            }
+            aside.sidebar > .card {
+                flex: 1 1 300px; /* 卡片並排，最小寬度300px */
+            }
+        }
+
+        /* =========================================
+           手機版本適應 (Mobile)
+           ========================================= */
+        @media (max-width: 768px) {
+            body { padding: 10px; }
+            
+            .container {
+                gap: 15px;
+                /* 手機版重新排序：標題 -> 時鐘 -> 溫習進度 -> 其他資源 */
+                grid-template-areas: 
+                    "header"
+                    "timer"
+                    "main"
+                    "sidebar-rest";
+            }
+
+            /* 將側邊欄解構，讓 Timer 獨立出來 */
+            aside.sidebar { display: contents; }
+            
+            #timer-card { grid-area: timer; }
+            #sidebar-rest-wrapper { grid-area: sidebar-rest; display: flex; flex-direction: column; gap: 15px; }
+
+            header {
+                flex-direction: column; gap: 15px; text-align: center; padding: 15px;
+            }
+            .progress-container { width: 100%; justify-content: space-between; }
+            .header-info h1 { font-size: 20px; }
+            .countdown { font-size: 16px; }
+
+            .topic-grid { grid-template-columns: 1fr; /* 手機版進度表單列顯示 */ }
+            
+            summary.collapsible-header { padding: 12px; font-size: 16px; }
+            .topic-item { padding: 12px; } /* 確保觸控範圍足夠 */
         }
     </style>
 </head>
@@ -310,13 +248,13 @@
             <div class="countdown" id="exam-countdown">距離考試還有: -- 天</div>
         </div>
         <div class="progress-container">
-            <button class="theme-toggle" onclick="toggleTheme()">切換深/淺模式</button>
+            <button class="theme-toggle" onclick="toggleTheme()">切換深/淺色</button>
             <div class="circle-progress" id="main-progress" data-percent="0%"></div>
         </div>
     </header>
 
-    <aside>
-        <div class="card">
+    <aside class="sidebar">
+        <div class="card" id="timer-card">
             <h3>⏳ 專注溫習小時鐘</h3>
             <div class="timer-display" id="timer-display">25:00</div>
             <div style="display:flex; align-items:center; gap:10px; justify-content:center;">
@@ -328,32 +266,34 @@
             </div>
         </div>
 
-        <div class="card">
-            <h3>🤖 溫習用 Google Gems</h3>
-            <a href="https://gemini.google.com/gem/1MJWoG3zChRXAnuVvomVmS4pOQF3ZMe43?usp=sharing" target="_blank" class="resource-link gem-link">✨ DSE 拆題教練</a>
-            <a href="https://gemini.google.com/gem/1tqaG1nzP0IQWxqybvz2LCk_vcVYyQ59P?usp=sharing" target="_blank" class="resource-link gem-link">📖 智能導師 (甲部)</a>
-            <a href="https://gemini.google.com/gem/1ftmBkqiH5HVIbGMx68Tj8-5fBTcBznCT?usp=sharing" target="_blank" class="resource-link gem-link">📘 智能導師 (乙部)</a>
-        </div>
+        <div id="sidebar-rest-wrapper">
+            <div class="card">
+                <h3>🤖 溫習用 Google Gems</h3>
+                <a href="https://gemini.google.com/gem/1MJWoG3zChRXAnuVvomVmS4pOQF3ZMe43?usp=sharing" target="_blank" class="resource-link gem-link">✨ DSE 拆題教練</a>
+                <a href="https://gemini.google.com/gem/1tqaG1nzP0IQWxqybvz2LCk_vcVYyQ59P?usp=sharing" target="_blank" class="resource-link gem-link">📖 智能導師 (甲部)</a>
+                <a href="https://gemini.google.com/gem/1ftmBkqiH5HVIbGMx68Tj8-5fBTcBznCT?usp=sharing" target="_blank" class="resource-link gem-link">📘 智能導師 (乙部)</a>
+            </div>
 
-        <div class="card">
-            <h3>📚 應試官方資源</h3>
-            <a href="https://www.hkeaa.edu.hk/DocLibrary/HKDSE/Subject_Information/chist/2026hkdse-c-chist.pdf" target="_blank" class="resource-link">🔗 2026 評核大綱</a>
-            <a href="https://www.hkeaa.edu.hk/tc/hkdse/assessment/subject_information/category_a_subjects/hkdse_subj.html?A2&2&8_25" target="_blank" class="resource-link">🔗 考生表現示例</a>
-            <a href="https://www.hkeaa.edu.hk/tc/hkdse/assessment/subject_information/category_a_subjects/hkdse_subj.html?A2&2&8_5" target="_blank" class="resource-link">🔗 教師研討會簡報</a>
-            <a href="https://www.youtube.com/@hippooqqih" target="_blank" class="resource-link">📺 鄧老師 YouTube 頻道</a>
-        </div>
+            <div class="card">
+                <h3>📚 應試官方資源</h3>
+                <a href="https://www.hkeaa.edu.hk/DocLibrary/HKDSE/Subject_Information/chist/2026hkdse-c-chist.pdf" target="_blank" class="resource-link">🔗 2026 評核大綱</a>
+                <a href="https://www.hkeaa.edu.hk/tc/hkdse/assessment/subject_information/category_a_subjects/hkdse_subj.html?A2&2&8_25" target="_blank" class="resource-link">🔗 考生表現示例</a>
+                <a href="https://www.hkeaa.edu.hk/tc/hkdse/assessment/subject_information/category_a_subjects/hkdse_subj.html?A2&2&8_5" target="_blank" class="resource-link">🔗 教師研討會簡報</a>
+                <a href="https://www.youtube.com/@hippooqqih" target="_blank" class="resource-link">📺 鄧老師 YouTube 頻道</a>
+            </div>
 
-        <div class="card">
-            <h3>✨ 每日勉勵</h3>
-            <div class="quote-box" id="quote-display">
-                「往者不可諫，來者猶可追。每一份努力都是歷史的積澱。」
+            <div class="card">
+                <h3>✨ 每日勉勵</h3>
+                <div class="quote-box" id="quote-display">
+                    「往者不可諫，來者猶可追。每一份努力都是歷史的積澱。」
+                </div>
             </div>
         </div>
     </aside>
 
     <main>
         <div class="card">
-            <h3>📑 溫習進度追蹤 <span style="font-size:14px; font-weight:normal; opacity:0.7;">(點擊標題可摺起/展開)</span></h3>
+            <h3 style="margin-bottom: 15px;">📑 溫習進度追蹤 <span style="font-size:14px; font-weight:normal; opacity:0.7;">(點擊標題可摺起/展開)</span></h3>
             
             <details class="topic-section" open>
                 <summary class="collapsible-header">甲部：上古至十九世紀中葉</summary>
@@ -363,7 +303,7 @@
                         <label class="topic-item important"><input type="checkbox"> <span>周代分封 ★</span></label>
                         <label class="topic-item important"><input type="checkbox"> <span>春秋戰國政治社會變動 ★</span></label>
                         <label class="topic-item"><input type="checkbox"> 秦始皇施政</label>
-                        <label class="topic-item important"><input type="checkbox"> <span>漢武帝施政 ★</span></label>
+                        <label class="topic-item important"><input type="checkbox"> <span>漢武帝 ★</span></label>
                         <label class="topic-item important"><input type="checkbox"> <span>王莽篡漢 ★</span></label>
                         <label class="topic-item important"><input type="checkbox"> <span>東漢政局 ★</span></label>
                     </div>
@@ -392,7 +332,7 @@
                     <div class="topic-grid">
                         <label class="topic-item"><input type="checkbox"> 鴉片戰爭及南京條約</label>
                         <label class="topic-item"><input type="checkbox"> 英法聯軍及北京條約</label>
-                        <label class="topic-item important"><input type="checkbox"> <span>甲午戰爭及列強劃分範力範圍 ★</span></label>
+                        <label class="topic-item important"><input type="checkbox"> <span>甲午戰爭及列強劃分 ★</span></label>
                         <label class="topic-item important"><input type="checkbox"> <span>洋務運動 ★</span></label>
                         <label class="topic-item important"><input type="checkbox"> <span>維新運動 ★</span></label>
                         <label class="topic-item important"><input type="checkbox"> <span>清末革命運動 ★</span></label>
@@ -452,22 +392,35 @@
         }
     }
     updateCountdown();
-    // 每天更新一次倒數
     setInterval(updateCountdown, 1000 * 60 * 60 * 24);
 
     // 2. 進度條邏輯
     const checkboxes = document.querySelectorAll('input[type="checkbox"]');
     const mainProgress = document.getElementById('main-progress');
 
+    // 讀取/儲存進度到 LocalStorage，讓學生重開網頁不會遺失進度
+    function loadProgress() {
+        const saved = JSON.parse(localStorage.getItem('chistProgress')) || [];
+        checkboxes.forEach((cb, index) => {
+            if(saved.includes(index)) cb.checked = true;
+        });
+        updateProgress();
+    }
+
     function updateProgress() {
         const total = checkboxes.length;
-        const checked = document.querySelectorAll('input[type="checkbox"]:checked').length;
-        const percent = Math.round((checked / total) * 100);
+        const checkedBoxes = document.querySelectorAll('input[type="checkbox"]:checked');
+        const percent = Math.round((checkedBoxes.length / total) * 100);
         mainProgress.setAttribute('data-percent', percent + '%');
         mainProgress.style.background = `conic-gradient(var(--accent-color) ${percent}%, var(--progress-empty) 0%)`;
+        
+        // 儲存進度
+        const saved = Array.from(checkboxes).map((cb, i) => cb.checked ? i : null).filter(i => i !== null);
+        localStorage.setItem('chistProgress', JSON.stringify(saved));
     }
 
     checkboxes.forEach(cb => cb.addEventListener('change', updateProgress));
+    loadProgress(); // 網頁載入時讀取
 
     // 3. 自訂小時鐘
     let timerInterval;
@@ -516,12 +469,16 @@
         const body = document.body;
         if (body.getAttribute('data-theme') === 'light') {
             body.removeAttribute('data-theme');
+            localStorage.setItem('theme', 'dark');
         } else {
             body.setAttribute('data-theme', 'light');
+            localStorage.setItem('theme', 'light');
         }
     }
+    // 記住用戶的主題偏好
+    if(localStorage.getItem('theme') === 'light') { document.body.setAttribute('data-theme', 'light'); }
 
-    // 5. 動態鼓勵金句 (每 8 秒轉換一次)
+    // 5. 動態鼓勵金句
     const quotes = [
         "「往者不可諫，來者猶可追。每一份努力都是歷史的積澱。」",
         "「博學之，審問之，慎思之，明辨之，篤行之。」",
@@ -536,24 +493,16 @@
     
     let quoteIndex = 0;
     const quoteDisplay = document.getElementById('quote-display');
-    
-    // 初始化第一句
     quoteDisplay.innerText = quotes[0];
 
     function changeQuote() {
-        // 先淡出
         quoteDisplay.style.opacity = 0;
-        
         setTimeout(() => {
-            // 更換文字
             quoteIndex = (quoteIndex + 1) % quotes.length;
             quoteDisplay.innerText = quotes[quoteIndex];
-            // 再淡入
             quoteDisplay.style.opacity = 1;
-        }, 800); // 等待淡出動畫完成 (與 CSS 中的 0.8s 配合)
+        }, 800);
     }
-
-    // 設定定時器，每 8 秒執行一次更換
     setInterval(changeQuote, 8000);
 
 </script>
